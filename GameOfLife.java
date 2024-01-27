@@ -76,6 +76,8 @@ public class GameOfLife {
 		int rows = Integer.parseInt(in.readLine());
 		int cols = Integer.parseInt(in.readLine());
 		int[][] board = new int[rows + 2][cols + 2];
+
+		// #feedback - the 2 "for"s are not needed - the board already contains zero values, because the default value of an integer array is 0.
 		for (int i = 0; i < cols + 2; i++) {
 			board[0][i] = 0;
 			board[rows+1][i] = 0;
@@ -96,8 +98,10 @@ public class GameOfLife {
 					if (line.charAt(k) == 'x') {
 						board[i][j] = 1;
 					} else {
+						// #feedback - also here, setting to zero is not needed.
 						board[i][j] = 0;
 					}
+					// #feedback - you can also use j-1 instead of k.
 					k++;
 				} else {
 					board[i][j] = 0;
@@ -157,6 +161,8 @@ public class GameOfLife {
 	// Assumes that j is at least 1 and at most the number of columns in the board - 1. 
 	public static int count(int[][] board, int i, int j) {
 		int livingNeighbors = 0;
+		// #feedback - you can iterate on i-1 to i+1, and j-1 to j+1, instead of defining this array.
+		// You defined it well, but in such cases you need to be very accurate to include all the neighbors, and it can lead to problems in case you forget something.
 		int[] neighbors = {board[i-1][j-1], board[i-1][j], board[i-1][j+1], board[i][j-1], board[i][j+1], board[i+1][j-1], board[i+1][j], board[i+1][j+1]};
 		for (int k = 0; k < neighbors.length; k++) {
 			if (neighbors[k] == 1) {
